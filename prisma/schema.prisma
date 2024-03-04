@@ -7,44 +7,128 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// persons_t
-model Person {
-  guid              String    @id
-  name              String?
-  birthDate         DateTime?
-  gender            Int?
-  contactInfo       String?
-  comment           String?
-  folderGuid        String?
-  imageGuid         String?
-  imageChangeTs     BigInt?
-  remoteServerGuid  String    @default("")
-  modificationId    BigInt    @default(autoincrement())
-  deletedTs         BigInt?
-  externalSystemId  String    @default("")
-  externalPersonId  String    @default("")
-  externalDataJson  String    @default("")
-  externalImageGuid String    @default("")
-  createdTs         BigInt?
-  lastModifiedTs    BigInt?
-  folderGuidBackup  String?
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model alarms {
+  created_ts         BigInt
+  idempotency_key    String  @id
+  parent_db_id       BigInt? @default(0)
+  category_id        BigInt? @default(0)
+  device_guid        String
+  resource_guid      String
+  resource_type      Int?    @default(0)
+  priority           Int?    @default(0)
+  status             Int?    @default(0)
+  utc_offset_min     Int?    @default(0)
+  comment            String?
+  reviewer           String?
+  primary_account    String?
+  content            String?
+  processing         Int?    @default(0)
+  type_action        Int?    @default(0)
+  post_attempt_count Int     @default(0)
 }
 
-// persons_images_t
-model PersonImage {
-  personGuid       String
-  imageGuid        String  @id
-  image            Bytes
-  thumbnail        Bytes
-  remoteServerGuid String  @default("")
-  modificationId   BigInt  @default(autoincrement())
-  deletedTs        BigInt?
-  createdTs        BigInt?
-  enrollError      Int     @default(0)
+model audit_events {
+  id        BigInt @id @default(autoincrement())
+  ts        BigInt
+  user_name String
+  user_guid String
+  host      String
+  type      String
+  message   String
 }
 
-// people_features
-model PeopleFeature {
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model auto_list_records {
+  plate          String     @db.VarChar(20)
+  original_plate String     @db.VarChar(40)
+  list_id        Int
+  disabled       Boolean?   @default(false)
+  comment        String     @db.VarChar(100)
+  time_threshold BigInt?    @default(0)
+  passes_left    Int?       @default(dbgenerated("(-1)"))
+  passes_initial Int?       @default(dbgenerated("(-1)"))
+  arbitrary_data Json?      @db.Json
+  auto_lists     auto_lists @relation(fields: [list_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([plate, list_id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model auto_lists {
+  id                Int                 @id @default(autoincrement())
+  reaction          Int
+  disabled          Boolean?            @default(false)
+  name              String              @db.VarChar(20)
+  arbitrary_data    Json?               @db.Json
+  auto_list_records auto_list_records[]
+}
+
+model auto_log {
+  id                       Int                       @id @default(autoincrement())
+  channel                  String?                   @db.VarChar(50)
+  plate                    String?                   @db.VarChar(20)
+  time_enter               BigInt?
+  time_bestview            BigInt?
+  time_leave               BigInt?
+  quality                  Float?                    @db.Real
+  radar_speed              Float?                    @db.Real
+  template                 String?                   @db.VarChar(20)
+  flags                    Int?
+  found_on_lists           String?
+  lane_index               Int?                      @default(0)
+  track_points             String?
+  best_guess               String?
+  vehicle_type             String?
+  // auto_log_additional_info auto_log_additional_info?
+
+  @@index([time_bestview], map: "auto_log_time_ind")
+}
+
+model auto_log_additional_info {
+  id                         BigInt   @id
+  matched_embrecords_history String?
+  matched_extlists_history   String?
+  origin_plate               String?  @db.VarChar(20)
+  last_recheck_ts            BigInt?
+  // auto_log                   auto_log @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model cloud_scripts {
+  created_ts           BigInt
+  script_id            BigInt @id
+  script_content       String
+  script_statistics    String @default("")
+  script_user_settings String @default("")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cloud_scripts_events {
+  created_ts     BigInt
+  script_id      BigInt
+  event_category String? @default("")
+  event_type     String? @default("")
+  data           String? @default("")
+  sync_state     Boolean @default(false)
+
+  @@ignore
+}
+
+model event_log {
+  id         Int     @id @default(autoincrement())
+  event_type Int?
+  ts         BigInt?
+  origin     String? @db.VarChar(36)
+  p1         String?
+  p2         String?
+  p3         String?
+  flags      Int?
+
+  @@index([p2], map: "event_log_p2_ind")
+  @@index([ts], map: "event_log_ts_ind")
+}
+
+model features {
   ts      Int
   channel String
   type    String
@@ -53,24 +137,99 @@ model PeopleFeature {
   @@id([ts, channel, type])
 }
 
-// 
-model Device {
-  id                      Int      @id @default(autoincrement())
-  ipAddress               String
-  port                    BigInt
-  family                  String
-  name                    String   @default("")
-  login                   String
-  password                String
-  capabilities            String   @default("[]")
-  parentDeviceId          BigInt   @default(0)
-  wiegand                 BigInt   @default(-1)
-  faceRecognitionInterval BigInt   @default(1)
-  admins                  String[]
-  // readerRs485Protocol     Protocol  @default(P_NOT_SELECTED)
+model fr_enrolled_persons_t {
+  person_guid        String
+  fir_type           Int
+  fir                Bytes?
+  ts                 BigInt?
+  remote_server_guid String  @default("")
+  modification_id    BigInt? @default(autoincrement())
+  deleted_ts         BigInt?
 
-  // enum Protocol {
-  //   P_NOT_SELECTED
-  //   // Add other protocol values as needed
-  // }
+  @@id([person_guid, fir_type], map: "fr_enrolled_persons_pkey")
+  @@unique([remote_server_guid, modification_id], map: "fr_enrolled_persons_t_rem_guid_mod_id")
+}
+
+model fr_matched_persons {
+  person_guid  String    @id
+  name         String?
+  birth_date   DateTime? @db.Date
+  gender       Int?
+  contact_info String?
+  comment      String?
+  folder_guid  String?
+  thumbnail    Bytes?
+  ts           BigInt?
+}
+
+model fr_tracks {
+  track_guid             String  @id @db.VarChar(36)
+  channel_guid           String? @db.VarChar(36)
+  ts_appeared            BigInt
+  ts_best_view           BigInt
+  ts_disappeared         BigInt  @default(0)
+  fir_type               Int?
+  fir                    Bytes?
+  image                  Bytes?
+  face_confidence        Int     @default(0)
+  matches                String?
+  best_match_person_guid String?
+  best_match_score       Int?
+  detect_more_result     String?
+  comment                String?
+  is_master_connected    Boolean @default(true)
+  roi                    String?
+  face_rect              String?
+  fir_2                  Bytes?
+  fir_3                  Bytes?
+  sdk_version            String?
+
+  @@index([ts_best_view], map: "fr_tracks_bm_idx")
+}
+
+model people_features {
+  ts      Int
+  channel String
+  type    String
+  data    String?
+
+  @@id([ts, channel, type])
+}
+
+model persons_images_t {
+  person_guid        String
+  image_guid         String  @id(map: "persons_images_pkey")
+  image              Bytes?
+  thumbnail          Bytes?
+  remote_server_guid String  @default("")
+  modification_id    BigInt? @default(autoincrement())
+  deleted_ts         BigInt?
+  created_ts         BigInt?
+  enroll_error       Int?    @default(0)
+
+  @@unique([remote_server_guid, modification_id], map: "persons_images_t_rem_guid_mod_id")
+}
+
+model persons_t {
+  guid                String    @id(map: "persons_pkey")
+  name                String?
+  birth_date          DateTime? @db.Date
+  gender              Int?
+  contact_info        String?
+  comment             String?
+  folder_guid         String?
+  image_guid          String?
+  image_change_ts     BigInt?
+  remote_server_guid  String    @default("")
+  modification_id     BigInt?   @default(autoincrement())
+  deleted_ts          BigInt?
+  external_system_id  String    @default("")
+  external_person_id  String    @default("")
+  external_data_json  String    @default("")
+  external_image_guid String    @default("")
+  created_ts          BigInt?
+  last_modified_ts    BigInt?
+  folder_guid_backup  String?
+
+  @@unique([remote_server_guid, modification_id], map: "persons_t_rem_guid_mod_id")
 }

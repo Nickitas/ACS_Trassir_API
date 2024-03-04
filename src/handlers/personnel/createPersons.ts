@@ -1,67 +1,72 @@
 import { PrismaClient } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
+import { IPersonInfoParams, IPersonInfoResponse } from "../../typings/interfaces/IPersons";
 
 const prisma = new PrismaClient();
 
-type PersonCreateParams = {
-    data: {
-        language: string,
-        persons: {
-            birth_date: Date,
-            comment: string,
-            folder_guid: string,
-            gender: number,
-            image: string,
-            name: string,
-            pacs: {
-                access_levels: any[],
-                associated_user: string,
-                associated_user_from_cloud: boolean,
-                attributes:any,
-                card_ids: any,
-                personnel_number: string,
-                pincode: string,
-                plates: string[],
-                work_schedule_id: number
-            }
-        }[];
-    }
-}
 
-type PersonCreateResponse = {
-
-}
-
-const newPerson = (data: PersonCreateParams): Promise<PersonCreateResponse> => {
-    return prisma.person.create({
-        data:  {
-            birthDate: new Date("2020-01-01").getDate(),
-            comment: "Comment",
-            folder_guid: "persons",
-            gender: 1,
-            image: "",
-            name: "New person",
-            pacs: {
-                access_levels: [],
-                associated_user: "Admin",
-                associated_user_from_cloud: false,
-                attributes: {
-                    "5": "Some value"
-                },
-                card_ids: [
-                    "4",
-                    "5"
-                ],
-                personnel_number: "1",
-                pincode: "3",
-                plates: [
-                    "2",
-                    "3"
-                ],
-                work_schedule_id: 0
-            }
+export const createOnePerson = async ({
+    name,
+    birth_date,
+    gender,
+    contact_info,
+    comment,
+    remote_server_guid,
+    external_system_id,
+    external_person_id,
+    external_data_json,
+    external_image_guid,
+    created_ts,
+    last_modified_ts,
+}: IPersonInfoParams) => {
+    const uuid = uuidv4();
+    const newPerson = await prisma.fr_enrolled_persons_t.create({
+        data: {
+            person_guid: uuid,
+            fir_type: Math.floor(Math.random() * 40),
+            fir: Buffer.from(uuid),
+            ts: new Date().getTime(),
+            remote_server_guid: '',
+            deleted_ts: null,
         }
-        
-    })
-};
+    });
 
-console.log(`new Person >>> ${newPerson}`);
+    return await prisma.persons_t.create({
+        data: {
+            guid: newPerson.person_guid,
+            name: name,
+            birth_date: birth_date,
+            gender: null,
+            contact_info: null,
+            comment: null,
+            folder_guid: null,
+            image_guid: null,
+            image_change_ts: null,
+            remote_server_guid: '',
+            deleted_ts: null,
+            external_system_id: '',
+            external_person_id: '',
+            external_data_json: '',
+            external_image_guid: '',
+            created_ts: newPerson.ts,
+            last_modified_ts: newPerson.ts,
+            folder_guid_backup: null,
+        }
+    });
+}
+
+// export const createManyPersons = async () => {
+//     const uuid = uuidv4();
+//     const persons = await prisma.persons_t.createMany({
+//         data: [
+//             {
+//                 guid: persons
+//                 name: 'Person 1',
+
+//             },
+//             {
+
+//             }
+//         ]
+//     })
+// }

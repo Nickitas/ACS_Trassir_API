@@ -13,12 +13,14 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.21",
+    "@types/uuid": "^9.0.8",
     "prisma": "^5.10.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@prisma/client": "^5.10.2",
-    "docker-compose": "^0.24.6"
+    "docker-compose": "^0.24.6",
+    "uuid": "^9.0.1"
   }
 }
