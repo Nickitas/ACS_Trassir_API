@@ -1,14 +1,13 @@
 # ACS Trassir API
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Nickitas/ACS_Trassir_API)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Nickitas/ACS_Trassir_API)
+![GitHub last commit](https://img.shields.io/github/last-commit/Nickitas/ACS_Trassir_API/commit/main)
 
 This application allows you to control Trassir Server via API.
 
 <hr/>
 
 <div id="header" align="center">
-  <img src="https://github.com/Nickitas/Nickitas/ACS_Trassir_API/preview.jpg" width="100%"/>
+  <img src="https://github.com/Nickitas/ACS_Trassir_API/blob/main/preview.png" width="100%"/>
 </div>
 
 ## 🗂 About system :
