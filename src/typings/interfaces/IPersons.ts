@@ -6,9 +6,10 @@ export interface IPersonInfoParams {
     birth_date?: Date | null;
     gender?: genderEnum | null;
     contact_info?: string | null;
+    image?: Buffer | string | null;
     comment?: string | null;
     folder_guid?: string | null;
-    image_guid?: string | null;
+    image_guid?: Buffer | string | null;
     image_change_ts?: number | null;
     remote_server_guid?: string;
     modification_id?: number | null;

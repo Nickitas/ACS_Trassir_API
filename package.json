@@ -1,5 +1,5 @@
 {
-  "name": "dstu_trassir_acs_api",
+  "name": "acs_trassir_api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@prisma/client": "^5.10.2",
     "@types/node": "^20.11.21",
     "@types/uuid": "^9.0.8",
     "prisma": "^5.10.2",
@@ -19,8 +20,8 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@prisma/client": "^5.10.2",
     "docker-compose": "^0.24.6",
+    "dotenv": "^16.4.5",
     "uuid": "^9.0.1"
   }
 }

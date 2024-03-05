@@ -21,9 +21,18 @@ async function main() {
         // devicesFamiliesList().then(e => console.log(e));
         
         //#region person_t
-        // createOnePerson().then(e => console.log(e));
-        // getPersonInfoByUniqueValue({ guid: 'daadf351-17f9-4cb2-9855-2445e88c8043' }).catch(err => console.error(err));
-        getAllPersonsInfo({ folder_guid: 'persons', name: 'Карточка 5' }).catch(err => console.log(err));
+        createOnePerson({
+            name: 'A', 
+            birth_date: new Date('2011-10-10'),
+            gender: 1, 
+            contact_info: '', 
+            image: '../../../img/pic1.png',
+            comment: '', 
+        }).catch(err => console.log(err));
+        // getPersonInfoByUniqueValue({ 
+        //     guid: 'daadf351-17f9-4cb2-9855-2445e88c8043' 
+        // }).catch(err => console.error(err));
+        // getAllPersonsInfo({ folder_guid: 'persons', name: 'Карточка 5' }).catch(err => console.log(err));
 
         //#endregion
 
