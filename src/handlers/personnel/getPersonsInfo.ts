@@ -4,9 +4,9 @@ import { IPersonInfoParams } from "../../typings/interfaces/IPersons";
 const prisma = new PrismaClient();
 
 /**
- * Получение Уникальной Persons из Таблицы person_t.
- * @param obj : object : пустой объект для выгрузки всех, или указание комбинации интересующих совпадений.
- * @returns : array of Persons Objects.
+ * Получение уникальной PERSON из таблицы person_t.
+ * @param obj type object : пустой объект для выгрузки всех; или указание перечисления интересующих полей по указанному значению.
+ * @returns type array of Persons Objects.
  */
 export const getPersonInfoByUniqueValue = async ({
     guid,
@@ -40,7 +40,6 @@ export const getPersonInfoByUniqueValue = async ({
         last_modified_ts,
     };
 
-    // Удаляем пустые значения из where объекта
     Object.keys(where).forEach(key => {
         if (typeof where[key] === 'undefined') {
             delete where[key];
@@ -85,15 +84,15 @@ export const getPersonInfoByUniqueValue = async ({
         },
     });
 
-    console.log(`>>> result:`);
+    console.log(`>>> the find PERSON is:`);
     console.log(result);
     return result;
 }
 
 /**
- * Получение всех Persons из Таблицы person_t.
- * @param obj : object : пустой для выгрузки всех, или указание комбинаций интересующих совпадений.
- * @returns : array of Persons Objects.
+ * Получение всех PERSONS из таблицы person_t.
+ * @param obj type object : пустой для выгрузки всех, или указание перечисления интересующих полей по указанному значению.
+ * @returns type array of PERSONS Objects.
  */
 export const getAllPersonsInfo = async ({
     guid,
@@ -140,7 +139,6 @@ export const getAllPersonsInfo = async ({
             last_modified_ts,
         };
 
-        // Удаляем пустые значения из where объекта
         Object.keys(where).forEach(key => {
             if (typeof where[key] === 'undefined') {
                 delete where[key];
@@ -151,10 +149,8 @@ export const getAllPersonsInfo = async ({
             where,
         });
 
-        console.log(`>>> result:`);
+        console.log(`>>> the find PERSONS are:`);
         console.log(result);
         return result;
     }
 }
-
-
