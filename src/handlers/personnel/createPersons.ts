@@ -6,19 +6,31 @@ const prisma = new PrismaClient();
 
 /**
  * Создание записи Таблицы person_t.
+<<<<<<< HEAD
  * @param name type string : Имя Персоны ;
  * @param birth_date type Data TS : Дата рождения Персоны ;
  * @param gender type genderEnum : Пол Персоны ;
  * @param contact_info type string : Контактная информация Персоны ;
  * @param image type Bytes : Фото Персоны ;
  * @param comment type string : Комментарий Персоны ;
+=======
+ * @name type string : Имя Персоны ;
+ * @birth_date type Data TS : Дата рождения Персоны ;
+ * @gender type genderEnum : Пол Персоны ;
+ * @contact_info type string : Контактная информация Персоны ;
+ * @image type Bytes : Фото Персоны ;
+ * @comment type string : Комментарий Персоны ;
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
  * @returns console log of result.
  */
 export const createOnePerson = async ({
     name,
     birth_date,
     gender,
+<<<<<<< HEAD
     external_system_id,
+=======
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
     contact_info,
     image,
     comment,
@@ -40,7 +52,23 @@ export const createOnePerson = async ({
         }
     });
 
+<<<<<<< HEAD
     const newFrMatchedPerson = await prisma.fr_matched_persons.create({
+=======
+    const newPersonImg = await prisma.persons_images_t.create({
+        data: {
+            person_guid: uuid,
+            image_guid: personImgGuid,
+            image: imgBytes,
+            thumbnail: null,
+            remote_server_guid: remoteServerGuid,
+            deleted_ts: null,
+            created_ts: nowTimeTs,
+        }
+    });
+
+    const result = await prisma.persons_t.create({
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
         data: {
             person_guid: newPerson.person_guid,
             name: name,
@@ -94,11 +122,14 @@ export const createOnePerson = async ({
     return result;
 }
 
+<<<<<<< HEAD
 /**
  * Создание сразу нескольких записей Таблицы person_t.
  * @param personsData type array : Массив объектов данных Персоны ;
  * @returns console log of results.
  */
+=======
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
 export const createManyPersons = async ({ personsData }: {  personsData: Array<IPersonInfoParams> }) => {
     const results = [];
     let personsCount = 0;

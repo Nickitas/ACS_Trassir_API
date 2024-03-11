@@ -3,7 +3,10 @@ import { devicesFamiliesList } from "./handlers/devices/getDevicesFamiliesList";
 import { 
     createOnePerson,
     createManyPersons,
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
     getPersonInfoByUniqueValue,
     getAllPersonsInfo,
 
@@ -24,6 +27,51 @@ async function main() {
         console.time('>>> query time');
 
 
+<<<<<<< HEAD
+=======
+        // devicesFamiliesList().then(e => console.log(e));
+        
+        //#region person_t
+        // createOnePerson({
+        //     name: 'A', 
+        //     birth_date: new Date('2011-10-10'),
+        //     gender: 1, 
+        //     contact_info: '', 
+        //     image: '../../../img/pic2.png',
+        //     comment: '', 
+        // }).catch(err => console.log(err));
+        createManyPersons({personsData: [
+            {
+                name: 'Б', 
+                birth_date: new Date('2011-10-10'),
+                gender: 1, 
+                contact_info: '', 
+                image: '../../../img/pic3.png',
+                comment: '', 
+            },
+            {
+                name: 'И', 
+                birth_date: new Date('2011-10-10'),
+                gender: 1, 
+                contact_info: '', 
+                image: '../../../img/pic4.png',
+                comment: '', 
+            }
+        ]}).catch(err => console.log(err));
+
+        createOnePerson({
+            name: 'A', 
+            birth_date: new Date('2011-10-10'),
+            gender: 1, 
+            contact_info: '', 
+            image: '../../../img/pic1.png',
+            comment: '', 
+        }).catch(err => console.log(err));
+        // getPersonInfoByUniqueValue({ 
+        //     guid: 'daadf351-17f9-4cb2-9855-2445e88c8043' 
+        // }).catch(err => console.error(err));
+        // getAllPersonsInfo({ folder_guid: 'persons', name: 'Карточка 5' }).catch(err => console.log(err));
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
 
         //#region DEVICES
         // devicesFamiliesList().then(e => console.log(e));
