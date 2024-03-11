@@ -122,14 +122,11 @@ export const createOnePerson = async ({
     return result;
 }
 
-<<<<<<< HEAD
 /**
  * Создание сразу нескольких записей Таблицы person_t.
  * @param personsData type array : Массив объектов данных Персоны ;
  * @returns console log of results.
  */
-=======
->>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
 export const createManyPersons = async ({ personsData }: {  personsData: Array<IPersonInfoParams> }) => {
     const results = [];
     let personsCount = 0;
