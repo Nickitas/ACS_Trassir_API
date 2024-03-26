@@ -39,24 +39,38 @@ export const getEventsLogsLast = async (numRecords?: number, order?: orderEnum) 
  * @param t0 type number : начальное время.
  * @param t1 type number : конечное время.
  */
+<<<<<<< HEAD
 export const getEventsLogsOfTimeInterval = async ({ t0, t1 }: { t0: string, t1: string }) => {
     let _t0 = new Date(t0).getTime();
     let _t1 = new Date(t1).getTime();
     
     if (_t1 < _t0) {
         [_t0, _t1] = [_t1, _t0];
+=======
+export const getEventsLogsOfTimeInterval = async ({ t0, t1 }: { t0: number, t1: number }) => {
+    if (t1 < t0) {
+        [t0, t1] = [t1, t0];
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
     }
 
     const result = await prisma.event_log.findMany({
         where: {
             ts: {
+<<<<<<< HEAD
                 gte: _t0, // больше или равно t0
                 lte: _t1, // меньше или равно t1
+=======
+                gte: t0, // больше или равно t0
+                lte: t1, // меньше или равно t1
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
             },
         },
     });
 
+<<<<<<< HEAD
     console.log(_t0, ' | ', _t1);
+=======
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
     console.log(`>>> the find Events Logs for time interval ${t0} - ${t1} are:`);
     console.log(result);
     return result;
@@ -67,10 +81,14 @@ export const getEventsLogsOfTimeInterval = async ({ t0, t1 }: { t0: string, t1: 
  * @param cardKey type string : код ключа доступа персоны.
  * @param t type number : начальная дата поиска.
  */
+<<<<<<< HEAD
 export const getEventsLogsByCardKey = async ({ cardKey, t }: {cardKey: string, t: string }) => {
     
     const _t = new Date(t).getDate();
 
+=======
+export const getEventsLogsByCardKey = async ({ cardKey, t }: {cardKey: string, t: number }) => {
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
     let queryOptions: any = {
         where: {
             cardKey: cardKey,
@@ -79,7 +97,11 @@ export const getEventsLogsByCardKey = async ({ cardKey, t }: {cardKey: string, t
 
     if (t) {
         queryOptions.where.ts = {
+<<<<<<< HEAD
             gte: _t,
+=======
+            gte: t,
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
         };
     }
 

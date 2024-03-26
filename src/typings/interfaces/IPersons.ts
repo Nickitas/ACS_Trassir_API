@@ -5,6 +5,10 @@ import { firTypeEnum } from "../enums/firTypeEnum";
  * Интерфейс модели Персоны
  */
 export interface IPersonInfoParams {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
     // persons_t
     guid?: string;                                      // Уникальный идентфикатор
     name?: string | null;                               // Ф.И.О.
@@ -34,6 +38,31 @@ export interface IPersonInfoParams {
     fir_type?: firTypeEnum,                                  // Тип биометрического отпечатка
     fir?: Buffer | string | null,                       // Биометрический шаблон
     ts?: number | null,                                 // Время создания
+<<<<<<< HEAD
+=======
+=======
+    guid?: string;
+    name?: string | null;
+    birth_date?: Date | null;
+    gender?: genderEnum | null;
+    contact_info?: string | null;
+    image?: Buffer | string | null;
+    comment?: string | null;
+    folder_guid?: string | null;
+    image_guid?: Buffer | string | null;
+    image_change_ts?: number | null;
+    remote_server_guid?: string;
+    modification_id?: number | null;
+    deleted_ts?: number | null;
+    external_system_id?: string;
+    external_person_id?: string;
+    external_data_json?: string;
+    external_image_guid?: string;
+    created_ts?: number | null;
+    last_modified_ts?: number | null;
+    folder_guid_backup?: string | null;
+>>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
+>>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
 }
 
 export interface IPersonInfoResponse {
