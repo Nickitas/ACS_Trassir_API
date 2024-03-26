@@ -42,15 +42,6 @@ async function main() {
             personsList
         }).catch(err => console.log(err));
 
-        createOnePerson({
-            name: 'A', 
-            birth_date: new Date('2011-10-10'),
-            gender: 1, 
-            contact_info: '', 
-            image: '../../../img/pic1.png',
-            comment: '', 
-        }).catch(err => console.log(err));
-
         // getPersonInfoByUniqueValue({ 
         //     guid: 'daadf351-17f9-4cb2-9855-2445e88c8043' 
         // }).catch(err => console.error(err));
@@ -58,6 +49,7 @@ async function main() {
         //#endregion PERSON_T
         
 
+        
         //#region EVENTS_LOGS
         // getEventsLogsLast().catch(err => console.log(err));
         // getEventsLogsOfTimeInterval({ t0: '2024-03-01', t1: '2024-03-12' }).catch(err => console.log(err));
