@@ -3,14 +3,7 @@ import { devicesFamiliesList } from "./handlers/devices/getDevicesFamiliesList";
 import { 
     createOnePerson,
     createManyPersons,
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
->>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
     getPersonInfoByUniqueValue,
     getAllPersonsInfo,
 
@@ -34,40 +27,20 @@ async function main() {
         console.time('>>> query time');
 
 
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
+        //#region DEVICES
         // devicesFamiliesList().then(e => console.log(e));
+        //#endregion DEVICES
         
-        //#region person_t
-        // createOnePerson({
-        //     name: 'A', 
-        //     birth_date: new Date('2011-10-10'),
-        //     gender: 1, 
-        //     contact_info: '', 
-        //     image: '../../../img/pic2.png',
-        //     comment: '', 
-        // }).catch(err => console.log(err));
-        createManyPersons({personsData: [
-            {
-                name: 'Б', 
-                birth_date: new Date('2011-10-10'),
-                gender: 1, 
-                contact_info: '', 
-                image: '../../../img/pic3.png',
-                comment: '', 
-            },
-            {
-                name: 'И', 
-                birth_date: new Date('2011-10-10'),
-                gender: 1, 
-                contact_info: '', 
-                image: '../../../img/pic4.png',
-                comment: '', 
-            }
-        ]}).catch(err => console.log(err));
+
+
+        //#region PERSON_T
+        // createOnePerson(
+        //     personsList[0]
+        // ).catch(err => console.log(err));
+        
+        createManyPersons({ personsData:
+            personsList
+        }).catch(err => console.log(err));
 
         createOnePerson({
             name: 'A', 
@@ -77,72 +50,18 @@ async function main() {
             image: '../../../img/pic1.png',
             comment: '', 
         }).catch(err => console.log(err));
+
         // getPersonInfoByUniqueValue({ 
         //     guid: 'daadf351-17f9-4cb2-9855-2445e88c8043' 
         // }).catch(err => console.error(err));
         // getAllPersonsInfo({ folder_guid: 'persons', name: 'Карточка 5' }).catch(err => console.log(err));
->>>>>>> 5f66d0551412a4824d6ab1db847fe333ccf55120
-
->>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
-        //#region DEVICES
-        // devicesFamiliesList().then(e => console.log(e));
-        //#endregion DEVICES
-
-        //#region PERSONS_T
-<<<<<<< HEAD
-        // createOnePerson(
-        //     personsList[0]
-        // ).catch(err => console.log(err));
-        createManyPersons({
-            personsData: personsList
-        }).catch(err => console.log(err));
-=======
-        // createOnePerson({
-        //     name: 'A', 
-        //     birth_date: new Date('2011-10-10'),
-        //     gender: 1, 
-        //     external_system_id: '',
-        //     contact_info: '', 
-        //     image: '../../../img/pic2.png',
-        //     comment: '', 
-        // }).catch(err => console.log(err));
-        // createManyPersons({personsData: [
-        //     {
-        //         name: 'Б', 
-        //         birth_date: new Date('2011-10-10'),
-        //         gender: 1, 
-        //         external_system_id: '',
-        //         contact_info: '', 
-        //         image: '../../../img/pic3.png',
-        //         comment: '', 
-        //     },
-        //     {
-        //         name: 'И', 
-        //         birth_date: new Date('2011-10-10'),
-        //         gender: 1, 
-        //         external_system_id: '',
-        //         contact_info: '', 
-        //         image: '../../../img/pic4.png',
-        //         comment: '', 
-        //     }
-        // ]}).catch(err => console.log(err));
->>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
-        // getPersonInfoByUniqueValue({ 
-        //     guid: 'daadf351-17f9-4cb2-9855-2445e88c8043' 
-        // }).catch(err => console.error(err));
-        // getAllPersonsInfo({ folder_guid: 'persons', name: 'Карточка 5' }).catch(err => console.log(err));
-        //#endregion PERSONS_T
+        //#endregion PERSON_T
+        
 
         //#region EVENTS_LOGS
-<<<<<<< HEAD
         // getEventsLogsLast().catch(err => console.log(err));
         // getEventsLogsOfTimeInterval({ t0: '2024-03-01', t1: '2024-03-12' }).catch(err => console.log(err));
         // getEventsLogsByCardKey({ cardKey: '24301123', t: '2011-10-10' }).catch(err => console.log(err));
-=======
-        getEventsLogsLast().catch(err => console.log(err));
-        getEventsLogsOfTimeInterval({ t0: 0, t1: 1 }).catch(err => console.log(err));
-        getEventsLogsByCardKey({ cardKey: '12312312312', t: 0 }).catch(err => console.log(err));
->>>>>>> 5162b0643bc242ec8e6c50cd28eb56506a5c850e
         //#endregion EVENTS_LOGS
 
         console.timeEnd('>>> query time');
